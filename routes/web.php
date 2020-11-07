@@ -17,15 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('clientes', 'ClienteController');
+    Route::resource('clientes', 'ClienteController');
 
-Route::resource('fornecedores', 'FornecedorController');
-Route::get('fornecedor/{fornecedor}/edit', 'FornecedorController@edit')->name('fornecedores.edit');
-Route::put('fornecedor/{fornecedor}', 'FornecedorController@update')->name('fornecedores.update');
-Route::delete('fornecedor/{fornecedor}', 'FornecedorController@destroy')->name('fornecedores.destroy');
+    Route::resource('fornecedores', 'FornecedorController');
+    Route::get('fornecedor/{fornecedor}/edit', 'FornecedorController@edit')->name('fornecedores.edit');
+    Route::put('fornecedor/{fornecedor}', 'FornecedorController@update')->name('fornecedores.update');
+    Route::delete('fornecedor/{fornecedor}', 'FornecedorController@destroy')->name('fornecedores.destroy');
 
-Route::resource('receitas', 'ReceitaController');
+    Route::resource('receitas', 'ReceitaController');
 
-Route::resource('custos', 'CustoController');
+    Route::resource('custos', 'CustoController');
+});
